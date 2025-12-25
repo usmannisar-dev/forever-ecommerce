@@ -13,7 +13,6 @@ const Cart = () => {
   useEffect(() => {
     if (products.length > 0) {
       const tempData = [];
-
       for (const id in cartItems) {
         for (const size in cartItems[id]) {
           if (cartItems[id][size] > 0) {
@@ -31,14 +30,15 @@ const Cart = () => {
 
   return (
     <div className="border-t pt-14">
+      {/* Title */}
       <div className="text-2xl mb-3">
         <Title text1={"YOUR"} text2={"CART"} />
       </div>
 
-      <div>
+      {/* Cart Items */}
+      <div className="flex flex-col gap-4">
         {cartData.map((item, index) => {
           const productData = products.find((p) => p._id === item._id);
-
           if (!productData) return null;
 
           return (
@@ -52,7 +52,7 @@ const Cart = () => {
                 <img
                   className="w-16 sm:w-20"
                   src={productData.image[0]}
-                  alt=""
+                  alt={productData.name}
                 />
 
                 <div>
@@ -60,48 +60,61 @@ const Cart = () => {
                     {productData.name}
                   </p>
 
-                  <div className="flex items-center gap-5 mt-2">
+                  <div className="flex items-center gap-2 sm:gap-4 mt-2">
                     <p>
                       {currency}
                       {productData.price}
                     </p>
 
-                    <p className="px-2 sm:px-3 sm:py-1 border bg-slate-50">
-                      {item.size}
-                    </p>
+                    {/* Size + Quantity + Delete */}
+                    <div className="flex items-center gap-2">
+                      {/* Size Box */}
+                      <p className="px-2 sm:px-3 py-1 border bg-slate-50 rounded text-center w-12 sm:w-14">
+                        {item.size}
+                      </p>
+
+                      {/* Quantity Input */}
+                      <input
+                        onChange={(e) =>
+                          e.target.value === "" || e.target.value === "0"
+                            ? null
+                            : updateQuantity(
+                                item._id,
+                                item.size,
+                                Number(e.target.value)
+                              )
+                        }
+                        type="number"
+                        min={1}
+                        defaultValue={item.quantity}
+                        className="
+                          border 
+                          text-left 
+                          w-12 sm:w-14 
+                          px-2 py-1 
+                          rounded 
+                          transition-all duration-200 
+                          focus:outline-none focus:ring-2 focus:ring-black
+                        "
+                      />
+
+                      {/* Delete Icon */}
+                      <img
+                        onClick={() => updateQuantity(item._id, item.size, 0)}
+                        className="w-4 sm:w-5 cursor-pointer hover:text-red-600 transition-colors duration-200"
+                        src={assets.bin_icon}
+                        alt="Delete"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-
-              {/* Quantity Input */}
-              <input
-                onClick={(e) =>
-                  e.target.value === "" || e.target.value === "0"
-                    ? null
-                    : updateQuantity(
-                        item._id,
-                        item.size,
-                        Number(e.target.value)
-                      )
-                }
-                type="number"
-                min={1}
-                className="border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1"
-                defaultValue={item.quantity}
-              />
-
-              {/* Delete Icon */}
-              <img
-                onClick={() => updateQuantity(item._id, item.size, 0)}
-                className="w-4 mr-4 sm:w-5 cursor-pointer"
-                src={assets.bin_icon}
-                alt=""
-              />
             </div>
           );
         })}
       </div>
 
+      {/* Cart Total & Checkout */}
       <div className="flex justify-end my-20">
         <div className="w-full sm:w-[450px]">
           <CartTotal />

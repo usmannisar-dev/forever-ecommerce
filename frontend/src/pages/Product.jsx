@@ -133,32 +133,7 @@ const Product = () => {
       </div>
 
       {/* -------- DESCRIPTION & REVIEW -------- */}
-      <div className="mt-20">
-        <div className="flex">
-          <div className="border px-5 py-3 text-sm">Description</div>
-          <p className="border px-5 py-3 text-sm">Review (122)</p>
-        </div>
-
-        <div className="flex flex-col gap-4 border py-6 px-6 text-sm text-gray-500">
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aliquid
-            earum reprehenderit libero minus officiis corrupti est voluptate
-            similique ad ipsa! Esse, voluptatum animi qui excepturi ipsa quod
-            nam libero velit. Lorem ipsum, dolor sit amet consectetur
-            adipisicing elit. Provident magnam nihil sequi incidunt cupiditate
-            vero saepe minus quaerat voluptates, deleniti adipisci alias quae
-            harum?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate
-            ipsam quos tempora molestias facilis quo facere temporibus provident
-            illum cum esse, eos nemo eius sequi. Lorem ipsum dolor sit amet
-            consectetur adipisicing elit. Totam tempore beatae aliquam sit
-            possimus mollitia magnam voluptatem architecto, velit perspiciatis.
-            Quas rerum modi cupiditate!
-          </p>
-        </div>
-
+      <div className="mt-25">
         {/* Related Products (you can add later) */}
         <RelatedProducts
           category={productData.category}
