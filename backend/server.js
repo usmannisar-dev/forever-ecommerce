@@ -23,10 +23,12 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "http://localhost:5173"
+      "http://localhost:5173",
+      "https://forever-ecommerce.vercel.app", // frontend (future)
+      "https://forever-ecommerce-admin.vercel.app", // admin (future)
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
+    credentials: true,
   })
 );
 
