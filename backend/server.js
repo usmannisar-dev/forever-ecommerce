@@ -24,8 +24,8 @@ app.use(
     origin: [
       "http://localhost:3000",
       "http://localhost:5173",
-      "https://forever-ecommerce.vercel.app", // frontend (future)
-      "https://forever-ecommerce-admin.vercel.app", // admin (future)
+      "https://forever-ecommerce-eight.vercel.app", // frontend
+      "https://forever-ecommerce-admin-green.vercel.app", // admin
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
