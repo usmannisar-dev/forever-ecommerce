@@ -8,33 +8,52 @@ import productRoute from "./routes/productRoute.js";
 import cartRouter from "./routes/cartRoute.js";
 import orderRoute from "./routes/orderRoute.js";
 
-
-// // Load environment variables
+// Load environment variables
 dotenv.config();
 
 // APP CONFIG
 const app = express();
 const port = process.env.PORT || 4000;
+
+// CONNECT DATABASE & CLOUDINARY
 connectDB();
 connectCloudinary();
 
 // MIDDLEWARES
 app.use(express.json());
 
-// CORS SETUP
-app.use(cors({
-  origin: ["https://forever-ecommerce-inky.vercel.app"], // allow your frontend
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  credentials: true
-}));
-app.use(cors());
+// CORS CONFIGURATION
+const allowedOrigins = [
+  "https://forever-ecommerce-eight.vercel.app", // frontend
+  "https://forever-ecommerce-admin-wine.vercel.app", // admin
+];
 
-// API ENDPOINTS
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // allow requests with no origin (like Postman)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg = `The CORS policy for this site does not allow access from the specified Origin.`;
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+  })
+);
+
+// Handle preflight OPTIONS requests for all routes
+app.options("*", cors());
+
+// ROUTES
 app.use("/api/user", userRoute);
 app.use("/api/product", productRoute);
 app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRoute);
 
+// TEST ROUTE
 app.get("/", (req, res) => {
   res.send("API WORKING");
 });
